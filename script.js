@@ -15,7 +15,9 @@ function getComputerChoice() {
     default:
       break;
   }
-  return str;
+  let result = str.toString().toLowerCase();
+  console.log("Computer: "+result);
+  return result;
 }
 
 function getHumanChoice() {
@@ -34,9 +36,60 @@ function getHumanChoice() {
       str = "Scissors";
       break;
     default:
-        console.log("Please select the correct option.")
+      str = "Please select the correct option.";
       break;
   }
-  return str;
+
+  let result = str.toString().toLowerCase();
+  console.log("Player: "+result);
+  return result;
 }
-console.log(getHumanChoice());
+
+let humanScore = 0;
+let compScore = 0;
+
+function playRound(humanChoice, compChoice) {
+  let result;
+  if (
+    (humanChoice === "rock" && compChoice === "scissors") ||
+    (humanChoice === "scissors" && compChoice === "paper") ||
+    (humanChoice === "paper" && compChoice === "rock")
+  ) {
+    humanScore++;
+    result = `You win! ${humanChoice} beats ${compChoice}\n\n`;
+  } else if (
+    (compChoice === "rock" && humanChoice === "scissors") ||
+    (compChoice === "scissors" && humanChoice === "paper") ||
+    (compChoice === "paper" && humanChoice === "rock")
+  ) {
+    compScore++;
+    result = `You lose! ${compChoice} beats ${humanChoice}\n\n`;
+  } else if (
+    (humanChoice === "rock" && compChoice === "rock") ||
+    (humanChoice === "scissors" && compChoice === "scissors") ||
+    (humanChoice === "paper" && compChoice === "paper")
+  ) {
+    result = `It's a tie\n\n`;
+  }else{
+    result = `no result\n\n`
+  }
+  
+  return result;
+}
+
+let winner = function () {
+  for (let i = 0; i < 5; i++) {
+    const humanChoice = getHumanChoice();
+    const compChoice = getComputerChoice();
+    console.log(playRound(humanChoice, compChoice));
+  }
+  if(humanScore > compScore){
+    console.log(`Congragulations! You win. \nYour score ${humanScore}\nOpponent score ${compScore}`);
+  }else if(compScore > humanScore){
+    console.log(`Better luck next time! You lost. \nYour score ${humanScore} \nOpponent score ${compScore}`);
+  }else{
+    console.log(`It's a tie!\nYour score ${humanScore} \nOpponent score ${compScore}`);
+  }
+};
+
+console.log(winner());
