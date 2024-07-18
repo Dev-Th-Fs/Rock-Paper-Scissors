@@ -92,4 +92,4 @@ let winner = function () {
   }
 };
 
-console.log(winner());
+winner();
